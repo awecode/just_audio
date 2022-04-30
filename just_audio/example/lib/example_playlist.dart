@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         start: Duration(seconds: 60),
         end: Duration(seconds: 90),
         child: AudioSource.uri(Uri.parse(
-            "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")),
+            "https://bitmovin-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa-audio-only.m3u8")),
         tag: AudioMetadata(
           album: "Science Friday",
           title: "A Salute To Head-Scratching Science (30 seconds)",

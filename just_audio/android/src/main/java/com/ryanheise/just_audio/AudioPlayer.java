@@ -101,6 +101,10 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
     private MediaSource mediaSource;
     private Integer currentIndex;
     private final Handler handler = new Handler(Looper.getMainLooper());
+
+    private CacheDataSourceFactory cache;
+
+
     private final Runnable bufferWatcher = new Runnable() {
         @Override
         public void run() {
@@ -682,11 +686,12 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
     }
 
     private DataSource.Factory buildDataSourceFactory() {
-        String userAgent = Util.getUserAgent(context, "just_audio");
-        DataSource.Factory httpDataSourceFactory = new DefaultHttpDataSource.Factory()
-            .setUserAgent(userAgent)
-            .setAllowCrossProtocolRedirects(true);
-        return new DefaultDataSourceFactory(context, httpDataSourceFactory);
+//        String userAgent = Util.getUserAgent(context, "just_audio");
+//        DataSource.Factory httpDataSourceFactory = new DefaultHttpDataSource.Factory()
+//            .setUserAgent(userAgent)
+//            .setAllowCrossProtocolRedirects(true);
+//        return new DefaultDataSourceFactory(context, httpDataSourceFactory);
+        return cache;
     }
 
     private void load(final MediaSource mediaSource, final long initialPosition, final Integer initialIndex, final Result result) {
@@ -718,6 +723,8 @@ public class AudioPlayer implements MethodCallHandler, Player.Listener, Metadata
     private void ensurePlayerInitialized() {
         if (player == null) {
             SimpleExoPlayer.Builder builder = new SimpleExoPlayer.Builder(context);
+            cache = new CacheDataSourceFactory(context);
+
             if (loadControl != null) {
                 builder.setLoadControl(loadControl);
             }
